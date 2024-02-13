@@ -3,7 +3,7 @@ package com.processing;
 import java.util.Arrays;
 
 public class Pizza {
-    private Crust crust;
+    private Crust   crust;
     private Cheese cheese;
     private Sauce sauce;
     private Topping[] toppings;
@@ -16,10 +16,16 @@ public class Pizza {
     }
 
     public Pizza(Pizza pizza) {
-        this.crust = pizza.getCrust();
-        this.cheese = pizza.getCheese();
-        this.sauce = pizza.getSauce();
-        this.toppings = pizza.getToppings();
+        this.crust = new Crust(new Cheese(pizza.getCrust().getCheese().getType()));
+        this.cheese = new Cheese(pizza.getCheese().getType());
+        this.sauce = new Sauce(pizza.getSauce().getColor());
+
+        Topping [] originalToppings = pizza.getToppings();
+
+        this.toppings = new Topping[originalToppings.length];
+        for (int i = 0; i < toppings.length; i++){
+            toppings[i] =new Topping(originalToppings[i].getType());
+        }
     }
 
     public Crust getCrust() {
